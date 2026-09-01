@@ -6,7 +6,6 @@ st.set_page_config(page_title="NOTIWEB UE 405 - Huacaybamba", layout="wide", pag
 # --- BLOQUEAR QUE EL SIDEBAR SE PUEDA OCULTAR/DESLIZAR ---
 st.markdown("""
 <style>
-/* Oculta el botón X y la flecha > para que nunca se pueda cerrar */
 button[data-testid="stSidebarCollapsedControl"],
 [data-testid="collapsedControl"],
 button[kind="header"] {
@@ -19,24 +18,96 @@ section[data-testid="stSidebar"] {
 </style>
 """, unsafe_allow_html=True)
 
-# --- LOGIN SIMPLE ---
+# --- LOGIN BONITO - DISEÑO ORIGINAL ---
 def login():
-    st.markdown("<h1 style='text-align:center; color:#1c2e4a;'>🏥 NOTIWEB UE 405 - HUACAYBAMBA</h1>", unsafe_allow_html=True)
-    st.markdown("<h3 style='text-align:center;'>Sistema de Análisis Epidemiológico</h3>", unsafe_allow_html=True)
-    col1, col2, col3 = st.columns([1,2,1])
+    st.markdown("""
+    <style>
+    .stApp {
+        background-color: #0a1931 !important;
+    }
+    /* Tarjeta principal */
+    .login-card {
+        background: linear-gradient(180deg, #132347 0%, #0f1c3a 100%);
+        border: 1px solid rgba(255,255,255,0.1);
+        border-radius: 24px;
+        padding: 40px 35px;
+        text-align: center;
+        box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+        max-width: 420px;
+        margin: 40px auto 20px auto;
+    }
+    .login-logo {
+        width: 80px;
+        height: 80px;
+        background: white;
+        border-radius: 16px;
+        margin: 0 auto 20px auto;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 40px;
+        box-shadow: 0 0 20px rgba(59,130,246,0.5);
+    }
+    .login-title {
+        color: white !important;
+        font-size: 22px;
+        font-weight: 800;
+        margin-bottom: 5px;
+    }
+    .login-subtitle {
+        color: #94a3b8 !important;
+        font-size: 13px;
+        margin-bottom: 25px;
+    }
+    /* Inputs */
+    .stTextInput > div > div > input {
+        background-color: white !important;
+        border-radius: 10px !important;
+        color: #1e293b !important;
+        border: none !important;
+        padding: 14px !important;
+    }
+    label {
+        color: #cbd5e1 !important;
+        font-size: 13px !important;
+    }
+    /* Boton */
+    .stButton > button {
+        background: linear-gradient(90deg, #2563eb 0%, #3b82f6 100%) !important;
+        color: white !important;
+        border: none !important;
+        border-radius: 10px !important;
+        padding: 12px !important;
+        font-weight: 600 !important;
+        width: 100% !important;
+        margin-top: 10px !important;
+    }
+    </style>
+    """, unsafe_allow_html=True)
+
+    # Contenedor centrado
+    col1, col2, col3 = st.columns([1,1.1,1])
     with col2:
-        st.info("🔐 Ingreso al sistema - Modo Licenciada y Técnico")
+        st.markdown("""
+        <div class="login-card">
+            <div class="login-logo">🏥</div>
+            <div class="login-title">Sistema NOTIWEB<br>UE 405 Huamalíes</div>
+            <div class="login-subtitle">Red de Salud Huamalíes - Huacaybamba</div>
+        </div>
+        """, unsafe_allow_html=True)
+        
         usuario = st.text_input("Usuario", value="admin", key="user")
         clave = st.text_input("Contraseña", type="password", value="1234", key="pass")
-        if st.button("INGRESAR", type="primary", use_container_width=True):
-            # Login simple - puedes cambiar usuario/clave
+        
+        if st.button("Iniciar sesión →", use_container_width=True):
             if (usuario == "admin" and clave == "1234") or (usuario == "licenciada" and clave == "licenciada"):
                 st.session_state['logado'] = True
                 st.session_state['usuario'] = usuario
                 st.rerun()
             else:
-                st.error("Usuario o clave incorrecta - Usa admin/1234 o licenciada/licenciada")
-        st.caption("Usuario técnico: admin / 1234 | Usuario licenciada: licenciada / licenciada")
+                st.error("Usuario o clave incorrecta")
+        
+        st.markdown("<p style='text-align:center; color:#64748b; font-size:11px; margin-top:15px;'>Usuario técnico: admin / 1234 | licenciada / licenciada</p>", unsafe_allow_html=True)
 
 if 'logado' not in st.session_state:
     st.session_state['logado'] = False
