@@ -84,14 +84,14 @@ def mostrar_pagina():
         if row.get('otros01') == 'S': return 'Otros'
         return 'No Especificado'
     df['TIPO DE VIOLENCIA'] = df.apply(obtener_tipo_violencia, axis=1)
-    def obtener_tipo_buaso(row):
+    def obtener_tipo_motivo(row):
         if row.get('familiar') == 'S': return 'Familiar'
         if row.get('celos') == 'S': return 'Celos'
         if row.get('economicos') == 'S': return 'Económicos'
         if row.get('laborales') == 'S': return 'Laborales'
         if row.get('sinmotivo') == 'S': return 'Sin Motivo'
         return 'No Especificado'
-    df['TIPO DE BUASO'] = df.apply(obtener_tipo_buaso, axis=1)
+    df['MOTIVO'] = df.apply(obtener_tipo_motivo, axis=1)
     df['SEXO'] = df['SEXO'].astype(str).str.upper()
     df['AÑO'] = pd.to_numeric(df['AÑO'], errors='coerce').astype('Int64')
     df['EDAD'] = pd.to_numeric(df['EDAD'], errors='coerce').astype('Int64')
